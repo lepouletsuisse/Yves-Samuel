@@ -107,7 +107,7 @@
 											"containerExtending": false,
 											"left": 0,
 											"top": 0,
-											"width": 73,
+											"width": 73.67724609375,
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
@@ -423,7 +423,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "+crediter(argent: double): void",
+											"text": "+crediter(montant: double): void",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5
 										},
@@ -451,7 +451,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "+debiter(argent: double): void",
+											"text": "+debiter(montant: double): void",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5
 										},
@@ -775,7 +775,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFQzYioNQDrUvU="
 									},
-									"name": "argent",
+									"name": "montant",
 									"visibility": "public",
 									"isStatic": false,
 									"isLeaf": false,
@@ -822,7 +822,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFQzYvEIQEAig8="
 									},
-									"name": "argent",
+									"name": "montant",
 									"visibility": "public",
 									"isStatic": false,
 									"isLeaf": false,
