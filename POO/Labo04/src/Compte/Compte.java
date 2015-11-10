@@ -1,13 +1,13 @@
 /*
  -----------------------------------------------------------------------------------
- Laboratoire : <nn>
- Fichier     : hgh.java
- Auteur(s)   : Samuel Darcey
+ Laboratoire : 04
+ Fichier     : Compte.java
+ Auteur(s)   : Samuel Darcey & Yves Athanasiadès
  Date        : 08.11.2015
 
- But         : <� compl�ter>
+ But         : <à compléter>
 
- Remarque(s) : <� compl�ter>
+ Remarque(s) : <à compléter>
 
  Compilateur : jdk1.8.0_60
  -----------------------------------------------------------------------------------
@@ -15,7 +15,7 @@
 package Compte;
 
 /*
-* TODO: constructeur, verifier bonne implementation, verifier donner,
+* TODO: constructeur, verifier bonne implementation, verifier donnée,
 * TODO: verifier formatage
 * */
 
@@ -23,23 +23,24 @@ package Compte;
  *
  */
 public class Compte {
-
    private final static double DEFAULT_SOLDE = 0.0;
    private static double defaultRetraitMax = 1000.0;
    private static double defaultDecouvertMax = 800.0;
 
-
+   /**
+    *
+    */
    private static int currentId;
 
    /**
     *
     */
-   private final int id;
+   private final int ID;
 
    /**
     *
     */
-   private final String titulaire;
+   private final String TITULAIRE;
 
    /**
     *
@@ -62,20 +63,24 @@ public class Compte {
    private double retraitMax;
 
    /**
-    * @param nom
+    * Créer une instance de la classe Compte avec les valeurs par défaut, excepté le titulaire
+    * @param nom  Le nom du titulaire du compte
+    * 
     */
    public Compte(String nom) throws IllegalArgumentException {
       this(nom, DEFAULT_SOLDE);
    }
 
    /**
+    * Créer une instance de la classe Compte avec les valeurs par défaut, excepté le titulaire et le solde
     * @param nom
     * @param solde
+    * @throws IllegalArgumentException
     */
    public Compte(String nom, double solde) throws IllegalArgumentException {
-      titulaire = nom;
-      id = currentId++;
-      setSolde(solde);
+      TITULAIRE = nom;
+      ID = currentId++;
+      this.solde = solde;
       setDecouvertMax(defaultDecouvertMax);
       setRetraitMax(defaultRetraitMax);
 
@@ -88,23 +93,24 @@ public class Compte {
     * @return
     */
    public String toString() {
-      return "Id: " + id + "\nTitulaire: " + titulaire + "\nDecouvert Max: " + decouvertMax + "\nDebit Max: " + retraitMax + "\nSolde: " + solde + "\nDecouvert?: "
-              + (estDecouvert() ? "Oui" : "Non") + "\nRetrait Max: "
-              + retraitMax + "\n";
+      return "Id: " + ID + "\nTitulaire: " + TITULAIRE + "\nDecouvert Max: "
+              + decouvertMax + "\nDebit Max: " + retraitMax + "\nSolde: "
+              + solde + "\nDecouvert?: " + (estDecouvert() ? "Oui" : "Non")
+              + "\nRetrait Max: " + retraitMax + "\n";
    }
 
    /**
     * @return
     */
    public int getId() {
-      return id;
+      return ID;
    }
 
    /**
     * @return
     */
    public String getTitulaire() {
-      return titulaire;
+      return TITULAIRE;
    }
 
    /**
