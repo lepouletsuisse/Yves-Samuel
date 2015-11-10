@@ -24,22 +24,22 @@ package Compte;
  */
 public class Compte {
 
+   private final static double DEFAULT_SOLDE = 0.0;
    private static double defaultRetraitMax = 1000.0;
    private static double defaultDecouvertMax = 800.0;
-   private final static double DEFAULT_SOLDE = 0.0;
 
-
-   /**
-    *
-    */
-   private int id;
 
    private static int currentId;
 
    /**
     *
     */
-   private String titulaire;
+   private final int id;
+
+   /**
+    *
+    */
+   private final String titulaire;
 
    /**
     *
@@ -88,29 +88,9 @@ public class Compte {
     * @return
     */
    public String toString() {
-      return "\nTitulaire: " + titulaire + "\nId: " + id + "\nSolde: " + solde + "\nDecouvert?: "
-              + (estDecouvert() ? "Oui" : "Non") + "\nDecouvert Max: " + decouvertMax + "\nRetrait Max: "
+      return "Id: " + id + "\nTitulaire: " + titulaire + "\nDecouvert Max: " + decouvertMax + "\nDebit Max: " + retraitMax + "\nSolde: " + solde + "\nDecouvert?: "
+              + (estDecouvert() ? "Oui" : "Non") + "\nRetrait Max: "
               + retraitMax + "\n";
-   }
-
-   public static void setDefaultRetraitMax(double montant) {
-      defaultRetraitMax = montant;
-   }
-
-   public static void setDefaultDecouvertMax(double montant) {
-      defaultDecouvertMax = montant;
-   }
-
-   public static double getDefaultRetraitMax() {
-      return defaultRetraitMax;
-   }
-
-   public static double getDefaultDecouvertMax() {
-      return defaultDecouvertMax;
-   }
-
-   public static double getDefaultSolde() {
-      return DEFAULT_SOLDE;
    }
 
    /**
@@ -155,15 +135,16 @@ public class Compte {
       return retraitMax;
    }
 
-   /**
-    * @param montant
-    * @return
-    */
-   private void setSolde(double montant) {
-      if (montant >= 0) {
-         solde = montant;
-         actualiserDecouvert();
-      }
+   public static double getDefaultSolde() {
+      return DEFAULT_SOLDE;
+   }
+
+   public static double getDefaultDecouvertMax() {
+      return defaultDecouvertMax;
+   }
+   
+   public static double getDefaultRetraitMax() {
+      return defaultRetraitMax;
    }
 
    /**
@@ -184,6 +165,14 @@ public class Compte {
       if (montant >= 0) {
          retraitMax = montant;
       }
+   }
+
+   public static void setDefaultDecouvertMax(double montant) {
+      defaultDecouvertMax = montant;
+   }
+
+   public static void setDefaultRetraitMax(double montant) {
+      defaultRetraitMax = montant;
    }
 
    /**
