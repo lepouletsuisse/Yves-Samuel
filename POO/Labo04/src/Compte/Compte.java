@@ -2,29 +2,35 @@
  -----------------------------------------------------------------------------------
  Laboratoire : 04
  Fichier     : Compte.java
- Auteur(s)   : Samuel Darcey & Yves Athanasiadès
+ Auteur(s)   : Samuel Darcey & Yves AthanasiadÃ¨s
  Date        : 08.11.2015
 
- But         : <à compléter>
+ But         : <Ã  complÃ©ter>
 
- Remarque(s) : <à compléter>
+ Remarque(s) : <Ã  complÃ©ter>
 
  Compilateur : jdk1.8.0_60
  -----------------------------------------------------------------------------------
 */
 package Compte;
 
-/*
-* TODO: constructeur, verifier bonne implementation, verifier donnée,
-* TODO: verifier formatage
-* */
-
 /**
  *
  */
 public class Compte {
+   /**
+    *
+    */
    private final static double DEFAULT_SOLDE = 0.0;
+
+   /**
+    *
+    */
    private static double defaultRetraitMax = 1000.0;
+
+   /**
+    *
+    */
    private static double defaultDecouvertMax = 800.0;
 
    /**
@@ -63,40 +69,54 @@ public class Compte {
    private double retraitMax;
 
    /**
-    * Créer une instance de la classe Compte avec les valeurs par défaut, excepté le titulaire
+    * CrÃ©er une instance de la classe Compte avec les valeurs par dÃ©faut, exceptÃ© le titulaire
     * @param nom  Le nom du titulaire du compte
     * 
     */
    public Compte(String nom) throws IllegalArgumentException {
-      this(nom, DEFAULT_SOLDE);
+      this(nom, DEFAULT_SOLDE, defaultDecouvertMax, defaultRetraitMax);
    }
 
    /**
-    * Créer une instance de la classe Compte avec les valeurs par défaut, excepté le titulaire et le solde
+    *
+    */
+   public Compte(String nom, double depot) throws IllegalArgumentException {
+      this(nom, depot, defaultDecouvertMax, defaultRetraitMax);
+   }
+
+   /**
+    * CrÃ©er une instance de la classe Compte avec les valeurs par dÃ©faut, exceptÃ© le titulaire et le solde
     * @param nom
-    * @param solde
+    * @param depot
     * @throws IllegalArgumentException
     */
-   public Compte(String nom, double solde) throws IllegalArgumentException {
-      TITULAIRE = nom;
-      ID = currentId++;
-      this.solde = solde;
-      setDecouvertMax(defaultDecouvertMax);
-      setRetraitMax(defaultRetraitMax);
+   public Compte(String nom, double depot, double decouvert) throws IllegalArgumentException {
+      this(nom, depot, decouvert, defaultRetraitMax);
+   }
 
-      if (decouvertMax < 0 || -solde > decouvertMax || retraitMax < 0 || nom == null) {
+   /**
+    *
+    */
+   public Compte(String nom, double depot, double decouvert, double retrait) throws IllegalArgumentException {
+      //Vérifie que les entrées utilisateurs soient bonnes
+      if (nom == null || -depot > decouvert || decouvert < 0 || retrait < 0) {
          throw new IllegalArgumentException();
       }
+      TITULAIRE = nom;
+      ID = currentId++;
+      solde = depot;
+      decouvertMax = decouvert;
+      retraitMax = retrait;
+      actualiserDecouvert();
    }
 
    /**
     * @return
     */
    public String toString() {
-      return "Id: " + ID + "\nTitulaire: " + TITULAIRE + "\nDecouvert Max: "
-              + decouvertMax + "\nDebit Max: " + retraitMax + "\nSolde: "
-              + solde + "\nDecouvert?: " + (estDecouvert() ? "Oui" : "Non")
-              + "\nRetrait Max: " + retraitMax + "\n";
+      return "\nId: " + ID + "\nTitulaire: " + TITULAIRE + "\nDecouvert Max: "
+              + decouvertMax + "\nRetrait Max: " + retraitMax + "\nSolde: "
+              + solde + "\nDecouvert?: " + (estDecouvert() ? "Oui" : "Non") + "\n";
    }
 
    /**
@@ -141,14 +161,23 @@ public class Compte {
       return retraitMax;
    }
 
+   /**
+    *
+    */
    public static double getDefaultSolde() {
       return DEFAULT_SOLDE;
    }
 
+   /**
+    *
+    */
    public static double getDefaultDecouvertMax() {
       return defaultDecouvertMax;
    }
-   
+
+   /**
+    *
+    */
    public static double getDefaultRetraitMax() {
       return defaultRetraitMax;
    }
@@ -157,27 +186,41 @@ public class Compte {
     * @param montant
     * @return
     */
-   public void setDecouvertMax(double montant) {
-      if (montant >= 0) {
-         decouvertMax = montant;
+   public void setDecouvertMax(double montant) throws IllegalArgumentException{
+      if (montant < 0 || solde >= -montant) {
+         throw new IllegalArgumentException();
       }
+      decouvertMax = montant;
    }
 
    /**
     * @param montant
     * @return
     */
-   public void setRetraitMax(double montant) {
-      if (montant >= 0) {
-         retraitMax = montant;
+   public void setRetraitMax(double montant) throws IllegalArgumentException{
+      if (montant < 0) {
+         throw new IllegalArgumentException();
       }
+      retraitMax = montant;
    }
 
-   public static void setDefaultDecouvertMax(double montant) {
+   /**
+    *
+    */
+   public static void setDefaultDecouvertMax(double montant)throws IllegalArgumentException{
+      if(montant < 0){
+         throw new IllegalArgumentException();
+      }
       defaultDecouvertMax = montant;
    }
 
-   public static void setDefaultRetraitMax(double montant) {
+   /**
+    *
+    */
+   public static void setDefaultRetraitMax(double montant) throws IllegalArgumentException{
+      if(montant < 0){
+         throw new IllegalArgumentException();
+      }
       defaultRetraitMax = montant;
    }
 
@@ -188,37 +231,41 @@ public class Compte {
       return decouvert > 0;
    }
 
+   /**
+    *
+    */
    public double debitMaxAutorise() {
+      //Vérifie si on peut retirer le montant maximum ou non
       if (Math.abs(solde - retraitMax) > decouvertMax) {
-         return retraitMax;
+         return solde + decouvertMax;
       }
-      return solde + decouvertMax;
+      return retraitMax;
    }
 
    /**
     * @param montant
     * @return
     */
-   public boolean crediter(double montant) {
+   public void crediter(double montant) throws IllegalArgumentException{
       if (montant < 0) {
-         return false;
+         throw new IllegalArgumentException();
       }
       solde += montant;
       actualiserDecouvert();
-      return true;
    }
 
    /**
     * @param montant
     * @return
     */
-   public double debiter(double montant) {
+   public double debiter(double montant) throws IllegalArgumentException{
       if (montant < 0) {
-         return 0.0d;
+         throw new IllegalArgumentException();
       }
       if (montant > retraitMax) {
          montant = retraitMax;
       }
+      //Vérifie que le montant demandé ne dépasse pas le découvert max
       if (Math.abs(solde - montant) > decouvertMax) {
          montant = solde + decouvertMax;
       }
@@ -232,15 +279,22 @@ public class Compte {
     * @param credit
     * @return
     */
-   public static double virer(Compte debit, Compte credit, double montant) {
+   public static double virer(Compte debit, Compte credit, double montant) throws IllegalArgumentException{
+      //Le test du montant est fait dans debiter() et crediter()
+      if(debit == null || credit == null){
+         throw new IllegalArgumentException();
+      }
       montant = debit.debiter(montant);
       credit.crediter(montant);
       return montant;
    }
 
+   /**
+    *
+    */
    private void actualiserDecouvert() {
       if (solde < 0) {
-         decouvert = Math.abs(solde);
+         decouvert = -solde;
       } else {
          decouvert = 0;
       }
