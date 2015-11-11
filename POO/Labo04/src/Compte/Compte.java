@@ -2,102 +2,121 @@
  -----------------------------------------------------------------------------------
  Laboratoire : 04
  Fichier     : Compte.java
- Auteur(s)   : Samuel Darcey & Yves AthanasiadÃ¨s
+ Auteur(s)   : Samuel Darcey & Yves Athanasiadès
  Date        : 08.11.2015
 
- But         : <Ã  complÃ©ter>
+ But         : Classe permettant de gérer un compte banquaire
+               et de faire des manipulations dessus.
 
- Remarque(s) : <Ã  complÃ©ter>
+ Remarque(s) : <à compléter>
 
  Compilateur : jdk1.8.0_60
  -----------------------------------------------------------------------------------
 */
+
 package Compte;
 
 /**
+ * Classe permettant la gestion d'un compte banquaire.
  *
+ * @author Samuel Darcey, Yves Athanasiadès
  */
 public class Compte {
    /**
-    *
+    * Permet de définir avec quel solde par défaut le compte sera ouvert.
     */
    private final static double DEFAULT_SOLDE = 0.0;
 
    /**
-    *
+    * Permet de définir avec quel retrait maximum le compte sera paramétré.
     */
    private static double defaultRetraitMax = 1000.0;
 
    /**
-    *
+    * Permet de définir avec quel seuil de découvert le compte sera paramétré.
     */
    private static double defaultDecouvertMax = 800.0;
 
    /**
-    *
+    * Défini l'id du prochain compte créé.
     */
    private static int currentId;
 
    /**
-    *
+    * L'id utilisé par le compte.
     */
    private final int ID;
 
    /**
-    *
+    * Le nom du titulaire du compte.
     */
    private final String TITULAIRE;
 
    /**
-    *
+    * Le solde actuel du compte.
     */
    private double solde;
 
    /**
-    *
+    * Le découvert actuel du compte (en valeur absolue).
     */
    private double decouvert;
 
    /**
-    *
+    * Le découvert maximum autorisé sur ce compte.
     */
    private double decouvertMax;
 
    /**
-    *
+    * Le retrait maximum autorisé sur ce compte.
     */
    private double retraitMax;
 
    /**
-    * CrÃ©er une instance de la classe Compte avec les valeurs par dÃ©faut, exceptÃ© le titulaire
-    * @param nom  Le nom du titulaire du compte
-    * 
+    * Crée une instance de la classe Compte.
+    *
+    * @param nom Le nom du titulaire du compte
+    * @throws IllegalArgumentException
     */
    public Compte(String nom) throws IllegalArgumentException {
       this(nom, DEFAULT_SOLDE, defaultDecouvertMax, defaultRetraitMax);
    }
 
    /**
+    * Crée une instance de la classe Compte.
     *
+    * @param nom   Le nom du titulaire du compte
+    * @param depot Le dépot initial du compte
+    * @throws IllegalArgumentException
     */
    public Compte(String nom, double depot) throws IllegalArgumentException {
       this(nom, depot, defaultDecouvertMax, defaultRetraitMax);
    }
 
    /**
-    * CrÃ©er une instance de la classe Compte avec les valeurs par dÃ©faut, exceptÃ© le titulaire et le solde
-    * @param nom
-    * @param depot
+    * Crée une instance de la classe Compte.
+    *
+    * @param nom       Le nom du titulaire du compte
+    * @param depot     Le dépot initial du compte
+    * @param decouvert Le découvert maximum autorisé sur le compte
     * @throws IllegalArgumentException
     */
-   public Compte(String nom, double depot, double decouvert) throws IllegalArgumentException {
+   public Compte(String nom, double depot, double decouvert)
+           throws IllegalArgumentException {
       this(nom, depot, decouvert, defaultRetraitMax);
    }
 
    /**
+    * Crée une instance de la classe Compte.
     *
+    * @param nom       Le nom du titulaire du compte
+    * @param depot     Le dépot initial du compte
+    * @param decouvert Le découvert maximum autorisé sur le compte
+    * @param retrait   Le retrait maximum autorisé sur le compte
+    * @throws IllegalArgumentException
     */
-   public Compte(String nom, double depot, double decouvert, double retrait) throws IllegalArgumentException {
+   public Compte(String nom, double depot, double decouvert, double retrait)
+           throws IllegalArgumentException {
       //Vérifie que les entrées utilisateurs soient bonnes
       if (nom == null || -depot > decouvert || decouvert < 0 || retrait < 0) {
          throw new IllegalArgumentException();
@@ -111,7 +130,10 @@ public class Compte {
    }
 
    /**
-    * @return
+    * Convertit le Compte en format affichable.
+    *
+    * @return Une chaine de caractère contenant le compte
+    * sous format affichable.
     */
    public String toString() {
       return "\nId: " + ID + "\nTitulaire: " + TITULAIRE + "\nDecouvert Max: "
@@ -120,84 +142,108 @@ public class Compte {
    }
 
    /**
-    * @return
+    * Obtient l'id du compte courrant.
+    *
+    * @return L'id du compte
     */
    public int getId() {
       return ID;
    }
 
    /**
-    * @return
+    * Obtient le titulaire du compte.
+    *
+    * @return Le titulaire du compte
     */
    public String getTitulaire() {
       return TITULAIRE;
    }
 
    /**
-    * @return
+    * Obtient le solde du compte.
+    *
+    * @return Le solde actuel du compte
     */
    public double getSolde() {
       return solde;
    }
 
    /**
-    * @return
+    * Obtient le découvert actuel du compte.
+    *
+    * @return Le découvert actuel du compte
     */
    public double getDecouvert() {
       return decouvert;
    }
 
    /**
-    * @return
+    * Obtient le découvert maximum autorisé sur le compte.
+    *
+    * @return Le découvert maximum du compte
     */
    public double getDecouvertMax() {
       return decouvertMax;
    }
 
    /**
-    * @return
+    * Obtient le retrait maximum autorisé sur le compte.
+    *
+    * @return Le retrait maximum
     */
    public double getRetraitMax() {
       return retraitMax;
    }
 
    /**
+    * Obtient le solde par défaut sur un compte.
     *
+    * @return Le solde par défaut
     */
    public static double getDefaultSolde() {
       return DEFAULT_SOLDE;
    }
 
    /**
+    * Obtient le découvert maximum autorisé par défaut sur un compte.
     *
+    * @return Le découvert maximum par défaut
     */
    public static double getDefaultDecouvertMax() {
       return defaultDecouvertMax;
    }
 
    /**
+    * Obtient le retrait maximum autorisé par défaut sur un compte.
     *
+    * @return Le retrait maximum par défaut
     */
    public static double getDefaultRetraitMax() {
       return defaultRetraitMax;
    }
 
    /**
-    * @param montant
-    * @return
+    * Permet de définir le découvert maximum autorisé sur le compte.
+    *
+    * @param montant Le montant du découvert maximum.
+    * @throws IllegalArgumentException
     */
-   public void setDecouvertMax(double montant) throws IllegalArgumentException{
-      if (montant < 0 || solde >= -montant) {
+   public void setDecouvertMax(double montant) throws IllegalArgumentException {
+      //Vérifie que le montant est correct
+      if (montant < 0 || solde < -montant) {
          throw new IllegalArgumentException();
       }
       decouvertMax = montant;
    }
 
    /**
-    * @param montant
-    * @return
+    * Permet de définir le retrait maximum autorisé sur le compte.
+    *
+    * @param montant Le montant du retrait maximum
+    * @throws IllegalArgumentException
     */
-   public void setRetraitMax(double montant) throws IllegalArgumentException{
+   public void setRetraitMax(double montant) throws IllegalArgumentException {
+      //Vérifie que le montant est correct
       if (montant < 0) {
          throw new IllegalArgumentException();
       }
@@ -205,34 +251,48 @@ public class Compte {
    }
 
    /**
+    * Permet de définir le découvert maximum autorisé par défaut sur un compte.
     *
+    * @param montant Le montant du découvert maximum
+    * @throws IllegalArgumentException
     */
-   public static void setDefaultDecouvertMax(double montant)throws IllegalArgumentException{
-      if(montant < 0){
+   public static void setDefaultDecouvertMax(double montant)
+           throws IllegalArgumentException {
+      //Vérifie que le montant est correct
+      if (montant < 0) {
          throw new IllegalArgumentException();
       }
       defaultDecouvertMax = montant;
    }
 
    /**
+    * Permet de définir le retrait maximum autorisé par défaut sur un compte.
     *
+    * @param montant Le montant du retrait maximum
+    * @throws IllegalArgumentException
     */
-   public static void setDefaultRetraitMax(double montant) throws IllegalArgumentException{
-      if(montant < 0){
+   public static void setDefaultRetraitMax(double montant)
+           throws IllegalArgumentException {
+      //Vérifie que le montant est correct
+      if (montant < 0) {
          throw new IllegalArgumentException();
       }
       defaultRetraitMax = montant;
    }
 
    /**
-    * @return
+    * Vérifie si le comtpe est à découvert
+    *
+    * @return Si le compte est a découvert ou pas
     */
    public boolean estDecouvert() {
       return decouvert > 0;
    }
 
    /**
+    * Vérifie quel est le retrait maximum pouvant être effectué sur le compte.
     *
+    * @return Le montant du retrait maximum
     */
    public double debitMaxAutorise() {
       //Vérifie si on peut retirer le montant maximum ou non
@@ -243,10 +303,13 @@ public class Compte {
    }
 
    /**
-    * @param montant
-    * @return
+    * Crédite sur le compte une somme donnée.
+    *
+    * @param montant Le montant à créditer
+    * @throws IllegalArgumentException
     */
-   public void crediter(double montant) throws IllegalArgumentException{
+   public void crediter(double montant) throws IllegalArgumentException {
+      //Vérifie que le montant est correct
       if (montant < 0) {
          throw new IllegalArgumentException();
       }
@@ -255,13 +318,18 @@ public class Compte {
    }
 
    /**
-    * @param montant
-    * @return
+    * Débite sur le compte une somme donnée.
+    *
+    * @param montant Le montant à débiter
+    * @return Le montant débité
+    * @throws IllegalArgumentException
     */
-   public double debiter(double montant) throws IllegalArgumentException{
+   public double debiter(double montant) throws IllegalArgumentException {
+      //Vérifie que le montant est correct
       if (montant < 0) {
          throw new IllegalArgumentException();
       }
+      //Vérifie que le montant n'excède pas le retrait max
       if (montant > retraitMax) {
          montant = retraitMax;
       }
@@ -275,13 +343,19 @@ public class Compte {
    }
 
    /**
-    * @param debit
-    * @param credit
-    * @return
+    * Effectue un virement d'un compte à un autre.
+    *
+    * @param debit   Le compte à débiter
+    * @param credit  Le compte à créditer
+    * @param montant Le montant à débiter/créditer
+    * @return Le montant débité/crédité
+    * @throws IllegalArgumentException
     */
-   public static double virer(Compte debit, Compte credit, double montant) throws IllegalArgumentException{
+   public static double virer(Compte debit, Compte credit, double montant)
+           throws IllegalArgumentException {
+      //Vérifie que les comptes existent
       //Le test du montant est fait dans debiter() et crediter()
-      if(debit == null || credit == null){
+      if (debit == null || credit == null) {
          throw new IllegalArgumentException();
       }
       montant = debit.debiter(montant);
@@ -290,14 +364,14 @@ public class Compte {
    }
 
    /**
-    *
+    * Met le découvert à jour en fonction du solde du compte.
     */
    private void actualiserDecouvert() {
       if (solde < 0) {
          decouvert = -solde;
-      } else {
+      }
+      else {
          decouvert = 0;
       }
    }
-
 }
