@@ -8,7 +8,7 @@
  But         : Classe permettant de gérer un compte banquaire
                et de faire des manipulations dessus.
 
- Remarque(s) : <à compléter>
+ Remarque(s) :
 
  Compilateur : jdk1.8.0_60
  -----------------------------------------------------------------------------------

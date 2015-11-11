@@ -8,7 +8,7 @@
  But         : Fichier de tests, destiné à contrôler le bon fonctionnement
                de la classe Compte.
 
- Remarque(s) : <à compléter>
+ Remarque(s) :
 
  Compilateur : jdk1.8.0_60
  -----------------------------------------------------------------------------------
